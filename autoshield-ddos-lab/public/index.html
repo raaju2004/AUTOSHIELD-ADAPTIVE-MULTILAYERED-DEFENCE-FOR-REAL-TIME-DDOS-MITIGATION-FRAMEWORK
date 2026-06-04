@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🚨 DDOS TARGET - Live Impact</title>
+    <style>
+        body {font-family: 'Courier New', monospace; background: #000; color: #00ff00; padding: 20px;}
+        .metric {background: rgba(0,255,0,0.1); padding: 15px; margin: 10px 0; border-radius: 5px;}
+        .critical {background: rgba(255,0,0,0.3) !important; border-left-color: #ff0000 !important;}
+    </style>
+</head>
+<body>
+    <h1>🎯 DDOS ATTACK TARGET</h1>
+    <div id="requests" class="metric">Requests: 0</div>
+    <div id="status" class="metric">Status: NORMAL</div>
+    <div id="cpu" class="metric">CPU: 0%</div>
+    <script>
+        setInterval(async()=>{ 
+            try {
+                const r = await fetch('/status.json');
+                const d = await r.json();
+                document.getElementById('requests').innerHTML = `Requests: ${d.requests}`;
+                document.getElementById('cpu').innerHTML = `CPU: ${d.cpu}%`;
+                document.getElementById('status').innerHTML = `Status: ${d.status}`;
+                if(d.status=='UNDER ATTACK') document.body.style.background='#330000';
+            } catch(e) {}
+        }, 1000);
+    </script>
+</body>
+</html>
